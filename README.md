@@ -6,8 +6,8 @@
 ## With Docker
 
     * Install Docker and Docker-compose
-    * import the data into the database that docker will build (link to download in the end of this repo)
     * run 'docker-compose up --build' in the root of project
+    * import the data into the database that docker will build (link to download in the end of this repo)
     * run 'docker exec <container name> python manage.py make migrations api'
     * run 'docker exec <container name> python manage.py make migrate'
 
@@ -19,6 +19,6 @@
     * Run 'pip install -r requirements.txt'
     * Download postgres
     * Create tables compatible with the models
-
+    * import the data into the database that docker will build (link to download in the end of this repo)
 
 Download the file ['caso.csv.gz'](https://brasil.io/dataset/covid19/files/)  to populate the database
