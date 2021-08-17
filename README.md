@@ -17,7 +17,8 @@
 
     * Install python 3.8
     * Run 'pip install -r requirements.txt'
-    * You will need to create a table into a postgres databese compatible with the Models of the poject and export the data there
+    * Download postgres
+    * Create tables compatible with the models
 
 
 Download the file ['caso.csv.gz'](https://brasil.io/dataset/covid19/files/)  to populate the database
