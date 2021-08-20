@@ -1,6 +1,8 @@
 from django.urls import path
-from api import views
+from .views import RawApiList, CityApiList, StateApiList
 
 urlpatterns = [
-    path('hello/', views.HelloWorld.as_view()),
+    path('raw/', RawApiList.as_view()),
+    path('city/', CityApiList.as_view()),
+    path('state/', StateApiList.as_view()),
 ]
