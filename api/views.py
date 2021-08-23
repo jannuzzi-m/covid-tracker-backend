@@ -1,6 +1,5 @@
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.filters import SearchFilter
 
 from .models import CovidCases
 from .serializers import RawCasesSerializer
@@ -13,21 +12,26 @@ class RawApiList(generics.ListAPIView):
 
 
 class CityApiList(generics.ListAPIView):
-    queryset = CovidCases.objects.filter(place_type='city',).order_by('-report_date')
-    filter_backends = [SearchFilter]
     serializer_class = RawCasesSerializer
     pagination_class = PageNumberPagination
-    search_fields = ['=city']
+    
+    def get_queryset(self):
+        city = self.kwargs['city']
+        queryset = CovidCases.objects.filter(place_type='city', city=city,).order_by('-report_date')
+        return queryset
     
 
 class StateApiList(generics.ListAPIView):
-    queryset = CovidCases.objects.filter(place_type='state').order_by('-report_date')
-    filter_backends = [SearchFilter]
     serializer_class = RawCasesSerializer
     pagination_class = PageNumberPagination
-    search_fields = ['state']
-
     
+
+    def get_queryset(self):
+        state = self.kwargs['state'].upper()
+        queryset = CovidCases.objects.filter(place_type='state', state=state).order_by('-report_date')
+        return queryset
+
+        
 class StatesLatestApiList(generics.ListAPIView):
     queryset = CovidCases.objects.filter(place_type='state', is_last=True)
     serializer_class = RawCasesSerializer
