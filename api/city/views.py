@@ -1,5 +1,6 @@
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
+from rest_framework import filters
 
 from ..models import CovidCases
 from ..serializers import RawCasesSerializer
@@ -15,7 +16,8 @@ class CityApiList(generics.ListAPIView):
 
     def get_queryset(self):
         city = self.kwargs['city']
-        queryset = CovidCases.objects.filter(place_type='city', city=city,).order_by('-report_date')
+        state = self.kwargs['state']
+        queryset = CovidCases.objects.filter(place_type='city', city=city, state=state.upper()).order_by('-report_date')
         return queryset
 
 
@@ -44,3 +46,14 @@ class CityLastMonthApiList(generics.ListAPIView):
             city = self.kwargs['city'].capitalize()
             queryset = CovidCases.objects.filter(place_type='city', city=city).order_by('-report_date')[:30]
             return queryset
+
+
+class CitySearchApiList(generics.ListAPIView):
+    """
+        Returns the search results for city 
+    """
+    queryset = CovidCases.objects.all().distinct('city')
+    serializer_class = RawCasesSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['city']
+
