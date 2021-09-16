@@ -7,8 +7,8 @@ from .city.views import CityApiList, CityLastYearApiList, CityLastMonthApiList, 
 urlpatterns = [
     path('raw/', RawApiList.as_view()),
 ] + [
-    re_path('city/(?P<city>.+)/last_year/', CityLastYearApiList.as_view()),
-    re_path('city/(?P<city>.+)/last_month/', CityLastMonthApiList.as_view()),
+    re_path('city/(?P<city>.+)/(?P<state>.+)/last_year/', CityLastYearApiList.as_view()),
+    re_path('city/(?P<city>.+)/(?P<state>.+)/last_month/', CityLastMonthApiList.as_view()),
     re_path('city/(?P<city>.+)/(?P<state>.+)/', CityApiList.as_view()),
     path('city/', CitySearchApiList.as_view()),
 ] + [
