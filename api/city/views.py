@@ -30,7 +30,7 @@ class CityLastYearApiList(generics.ListAPIView):
 
 
     def get_queryset(self):
-        queryset = CovidCases.objects.raw(f"select * from api_covidcases where city = '{self.kwargs['city'].capitalize()}' and and state={self.kwargs['city'].upper()} place_type = 'city' and date_part('day', report_date) = 1 order by report_date desc limit 12; ")
+        queryset = CovidCases.objects.raw(f"select * from api_covidcases where city = '{self.kwargs['city']}' and and state={self.kwargs['city'].upper()} place_type = 'city' and date_part('day', report_date) = 1 order by report_date desc limit 12; ")
         return queryset
 
 
@@ -43,8 +43,8 @@ class CityLastMonthApiList(generics.ListAPIView):
 
 
     def get_queryset(self):
-            city = self.kwargs['city'].capitalize()
-            state = self.kwargs['state'].capitalize()
+            city = self.kwargs['city']
+            state = self.kwargs['state']
             queryset = CovidCases.objects.filter(place_type='city', city=city, state=state).order_by('-report_date')[:30]
             return queryset
 
