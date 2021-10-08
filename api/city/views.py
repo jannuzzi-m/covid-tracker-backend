@@ -53,7 +53,7 @@ class CitySearchApiList(generics.ListAPIView):
     """
         Returns the search results for city 
     """
-    queryset = CovidCases.objects.all().distinct('city')
+    queryset = CovidCases.objects.all().distinct('city_ibge_code')
     serializer_class = RawCasesSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['city']
